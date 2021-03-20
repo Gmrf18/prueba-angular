@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from 'src/app/interfaces/user';
+import { UsersService } from '../../services/users.service';
+import { IName, IUserRespond, IUser } from '../../interfaces';
 
 @Component({
   selector: 'app-tables',
@@ -7,12 +8,71 @@ import { IUser } from 'src/app/interfaces/user';
   styleUrls: ['./tables.component.scss']
 })
 export class TablesComponent implements OnInit {
-
-  users: IUser[] = []
+  
+  users: IName[] = []
+  
   usersFemale: IUser[] = []
   usersMale: IUser[] = []
+  
 
-  constructor() { }
+  constructor(private u: UsersService) { }
+
+  ngOnInit(){
+   
+  this.getUsuarios();
+  this.getGenero();
+
+
+    
+  }
+
+
+  getUsuarios(){
+  this.u.getUsers()
+  .subscribe( users =>{
+    users.forEach(user=>{
+      this.users.push(this.u.aux(user));
+      this.users.splice(10, 1);
+    })
+  })
+}
+
+// getTest()
+// {
+//   this.u.getUsers()
+// .subscribe(data2 => {
+//   console.log(data2);
+//   this.data2 = data2;
+//   for (let user of this.data2){
+//    user.name == user.name.firstName + " " + user.name.lastName;
+      
+// console.log(user.name);
+// }
+
+//   });
+
+// }
+
+getGenero(){
+
+  this.u.getUsers()
+  .subscribe( users =>{
+    users
+    .forEach( user =>{
+      if(user.gender==="F"){
+        this.usersFemale.push(this.u.aux(user));
+        this.usersFemale.splice(10, 1);
+      };
+      if(user.gender==='M'){
+        this.usersMale.push(this.u.aux(user));
+        this.usersMale.splice(10, 1);
+      };
+    })
+  })
+}
+
+  
+
 
 }
 // ENDPOINT Y URLBASE ubicados en archivo environments.ts
