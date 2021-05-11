@@ -1,0 +1,135 @@
+<div class="container">
+    <h4>Formulario Reactivo</h4>
+    <hr>
+    <form autocomplete="off" [formGroup]="form">
+        <div>
+            <div class="form-group row mt-3">
+                <label class="col-2 col-form-label">Id</label>
+                <div class="col-8">
+
+                    <input class="form-control" type="number" placeholder="Id" formControlName="id"
+                        [class.is-invalid]="idNoValido">
+                    <small class="text-danger" *ngIf="idNoValido">Id obligatorio</small>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-2 col-form-label">Nombre</label>
+                <div class="col-8">
+
+                    <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre"
+                        [class.is-invalid]="nombreNoValido">
+                    <small class="text-danger" *ngIf="nombreNoValido">Nombre obligatorio, no más de 40
+                        caracteres</small>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-2 col-form-label">Apellido</label>
+                <div class="col-8">
+
+                    <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido"
+                        [class.is-invalid]="apellidoNoValido">
+                    <small class="text-danger" *ngIf="apellidoNoValido">Apellido obligatorio, no más de 40
+                        caracteres</small>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-2 col-form-label">Edad</label>
+                <div class="col-8">
+
+                    <input class="form-control" type="number" placeholder="Edad" formControlName="edad" (keyup)="validAge($event.target.value)"
+                        [class.is-invalid]="edadNoValido">
+                    <small class="text-danger" *ngIf="edadNoValido">Edad obligatorio, no más de 3 caracteres</small>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-2 col-form-label">Sexo</label>
+                <div class="col-8">
+                    <div class="btn-group" role="group">
+
+                        <input type="radio" class="btn-check form-control" name="sexo" id="sexom" value="M"
+                            formControlName="sexo" [class.is-invalid]="sexoNoValido">
+                        <label class="btn btn-outline-secondary" for="sexom">Masculino</label>
+
+                        <input type="radio" class="btn-check form-control" name="sexo" id="sexof" value="F"
+                            formControlName="sexo" [class.is-invalid]="sexoNoValido">
+                        <label class="btn btn-outline-secondary" for="sexof">Femenino</label>
+                    </div>
+                    <small class="text-danger" *ngIf="sexoNoValido">Sexo obligatorio</small>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group row mt-3">
+            <label class="col-2 col-form-label">Correo</label>
+            <div class="col-8">
+
+                <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo"
+                    [class.is-invalid]="correoNoValido">
+                <small class="text-danger" *ngIf="correoNoValido">Ingrese Correo</small>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <label class="col-2 col-form-label">User Name</label>
+            <div class="col-8">
+
+                <input class="form-control" type="text" placeholder="User Name" formControlName="username"
+                    [class.is-invalid]="userNameNoValido">
+                <small class="text-danger" *ngIf="userNameNoValido">User Name no debe tener más de 30 caracteres</small>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <label class="col-2 col-form-label">Trabaja</label>
+            <div class="col-8">
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="trabaja" id="trabajasi" value="si"
+                        formControlName="trabaja">
+                    <label class="btn btn-outline-secondary" for="trabajasi">Si</label>
+
+                    <input type="radio" class="btn-check" name="trabaja" id="trabajano" value="no" 
+                        formControlName="trabaja">
+                    <label class="btn btn-outline-secondary" for="trabajano">No</label>
+                </div>
+            </div>
+        </div>
+
+       <div class="form-group row mt-3" *ngIf="form.controls.trabaja.value === 'si'"> 
+            <label class="col-2 col-form-label">Nombre Compania</label>
+            <div class="col-8">
+
+                <input class="form-control" type="text" placeholder="Nombre Compania" formControlName="nombreCompania"
+                    [class.is-invalid]="nombreCompaniaNoValido">
+                <small class="text-danger" *ngIf="nombreCompaniaNoValido">Nombre Compania no debe tener más de 18 caracteres</small>
+            </div>
+        </div>
+
+         <div class="form-group row mt-3" *ngIf="form.controls.trabaja.value === 'si'">
+            <label class="col-2 col-form-label">Anios Compania</label>
+            <div class="col-8">
+
+                <input class="form-control" type="number" placeholder="Anios Compania" formControlName="aniosCompania"
+                    [class.is-invalid]="aniosCompaniaNoValido">
+                <small class="text-danger" *ngIf="aniosCompaniaNoValido">Anios Compania no puede ser mayor a 15</small>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <label class="col-2 col-form-label">&nbsp;</label>
+            <div class="input-group col-md-8">
+                <button type="submit" [disabled]="form.invalid" (click)="enviar()" class="btn btn-outline-primary btn-block">
+                    Enviar
+                </button>
+                <button type="submit" [disabled]="form.invalid" (click)="update()" class="btn btn-outline-primary btn-block">
+                    Update
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>
